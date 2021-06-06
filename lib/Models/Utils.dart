@@ -18,7 +18,7 @@ class Utils {
 
   static FamilyData familyData;
 
-  static List cartItems = [];
+  static List socialData = [];
 
   static var lightNavbar = SystemUiOverlayStyle.light.copyWith(
       statusBarBrightness: Brightness.light,
@@ -56,7 +56,7 @@ class Utils {
   static double buttonBorderRadius = 10.0;
 
   static InputDecoration getDefaultTextInputDecoration(
-      String label, Icon suffixIcon) {
+      String label, var suffixIcon) {
     return InputDecoration(
         labelText: label,
         errorStyle: TextStyle(fontSize: 11, color: Colors.red),

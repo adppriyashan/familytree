@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:familytree/Models/FamilyData.dart';
 import 'package:familytree/Views/PopUps/NewRecord.dart';
+import 'package:familytree/Views/SocialList.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
-import 'package:familytree/Controllers/HomeController.dart';
 import 'package:familytree/Models/Colors.dart';
 import 'package:familytree/Models/Utils.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,11 @@ class _HomeState extends State<Home> {
           IconButton(
               icon: Icon(Icons.account_circle_outlined),
               onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => PartProfile())))
+                  context, MaterialPageRoute(builder: (_) => PartProfile()))),
+          IconButton(
+              icon: Icon(Icons.device_hub),
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => SocialList()))),
         ],
       ),
       body: Container(
