@@ -138,7 +138,7 @@ class NewRecordState extends State<NewRecord> {
                           color: UtilColors.greyColor.withOpacity(0.6),
                         )),
                     cursorColor: UtilColors.primaryColor,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     style: Utils.getprimaryFieldTextStyle(UtilColors.greyColor),
                   ),
                   SizedBox(

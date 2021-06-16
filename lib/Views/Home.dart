@@ -59,6 +59,7 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.account_circle_outlined),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => PartProfile()))),
+          IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           IconButton(
               icon: Icon(Icons.device_hub),
               onPressed: () => Navigator.push(

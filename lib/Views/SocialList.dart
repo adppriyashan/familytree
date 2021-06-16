@@ -74,20 +74,116 @@ class _SocialListState extends State<SocialList> {
               SizedBox(
                 height: 10.0,
               ),
-              FutureBuilder<DataSnapshot>(
-                future: SocialDataController().getData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    Map<dynamic, dynamic> records = snapshot.data.value;
-                    if (records != null) {
-                      List<Widget> list = [];
+              Flexible(
+                child: FutureBuilder<DataSnapshot>(
+                  future: SocialDataController().getData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<dynamic, dynamic> records = snapshot.data.value;
+                      if (records != null) {
+                        List<Widget> list = [];
 
-                      if (_searchController.text.isNotEmpty) {
-                        records.forEach((key, value) {
-                          if (value['name']
-                              .toString()
-                              .toLowerCase()
-                              .contains(_searchController.text)) {
+                        if (_searchController.text.isNotEmpty) {
+                          records.forEach((key, value) {
+                            if (value['name']
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchController.text)) {
+                              list.add(Card(
+                                child: ListTile(
+                                  leading: GestureDetector(
+                                    onTap: () async {
+                                      value['id'] = key;
+                                      await showDialog(
+                                        context: context,
+                                        builder: (_) => SocialUser(
+                                          data: value,
+                                        ),
+                                      ).then((onValue) {
+                                        setState(() {});
+                                      });
+                                    },
+                                    child: ClipRRect(
+                                      child: SizedBox(
+                                        height: 50.0,
+                                        width: 50.0,
+                                        child: Image.asset(
+                                            'assets/images/child.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  title: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 10.0, bottom: 10.0),
+                                    child: Text(value['name'].toString()),
+                                  ),
+                                  subtitle: Row(
+                                    children: [
+                                      (value['facebook'] == null)
+                                          ? SizedBox()
+                                          : GestureDetector(
+                                              onTap: () {
+                                                openUrl(value['facebook']);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 10.0),
+                                                child: FaIcon(
+                                                    FontAwesomeIcons.facebook,
+                                                    color: Colors.blueAccent),
+                                              ),
+                                            ),
+                                      (value['twitter'] == null)
+                                          ? SizedBox()
+                                          : GestureDetector(
+                                              onTap: () {
+                                                openUrl(value['twitter']);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 10.0),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.twitter,
+                                                  color: Colors.lightBlue,
+                                                ),
+                                              ),
+                                            ),
+                                      (value['instagram'] == null)
+                                          ? SizedBox()
+                                          : GestureDetector(
+                                              onTap: () {
+                                                openUrl(value['instagram']);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 10.0),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.instagram,
+                                                  color: Colors.pink,
+                                                ),
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                  trailing: GestureDetector(
+                                    onTap: () async {
+                                      _socialController
+                                          .delete(key)
+                                          .then((value) {
+                                        setState(() {});
+                                      });
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: UtilColors.redColor,
+                                    ),
+                                  ),
+                                ),
+                              ));
+                            }
+                          });
+                        } else {
+                          records.forEach((key, value) {
                             list.add(Card(
                               child: ListTile(
                                 leading: GestureDetector(
@@ -177,114 +273,22 @@ class _SocialListState extends State<SocialList> {
                                 ),
                               ),
                             ));
-                          }
-                        });
-                      } else {
-                        records.forEach((key, value) {
-                          list.add(Card(
-                            child: ListTile(
-                              leading: GestureDetector(
-                                onTap: () async {
-                                  value['id'] = key;
-                                  await showDialog(
-                                    context: context,
-                                    builder: (_) => SocialUser(
-                                      data: value,
-                                    ),
-                                  ).then((onValue) {
-                                    setState(() {});
-                                  });
-                                },
-                                child: ClipRRect(
-                                  child: SizedBox(
-                                    height: 50.0,
-                                    width: 50.0,
-                                    child:
-                                        Image.asset('assets/images/child.png'),
-                                  ),
-                                ),
-                              ),
-                              title: Padding(
-                                padding:
-                                    EdgeInsets.only(left: 10.0, bottom: 10.0),
-                                child: Text(value['name'].toString()),
-                              ),
-                              subtitle: Row(
-                                children: [
-                                  (value['facebook'] == null)
-                                      ? SizedBox()
-                                      : GestureDetector(
-                                          onTap: () {
-                                            openUrl(value['facebook']);
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 10.0),
-                                            child: FaIcon(
-                                                FontAwesomeIcons.facebook,
-                                                color: Colors.blueAccent),
-                                          ),
-                                        ),
-                                  (value['twitter'] == null)
-                                      ? SizedBox()
-                                      : GestureDetector(
-                                          onTap: () {
-                                            openUrl(value['twitter']);
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 10.0),
-                                            child: FaIcon(
-                                              FontAwesomeIcons.twitter,
-                                              color: Colors.lightBlue,
-                                            ),
-                                          ),
-                                        ),
-                                  (value['instagram'] == null)
-                                      ? SizedBox()
-                                      : GestureDetector(
-                                          onTap: () {
-                                            openUrl(value['instagram']);
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 10.0),
-                                            child: FaIcon(
-                                              FontAwesomeIcons.instagram,
-                                              color: Colors.pink,
-                                            ),
-                                          ),
-                                        ),
-                                ],
-                              ),
-                              trailing: GestureDetector(
-                                onTap: () async {
-                                  _socialController.delete(key).then((value) {
-                                    setState(() {});
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.delete,
-                                  color: UtilColors.redColor,
-                                ),
-                              ),
-                            ),
-                          ));
-                        });
-                      }
+                          });
+                        }
 
-                      return ListView(
-                        children: list,
-                      );
+                        return ListView(
+                          children: list,
+                        );
+                      } else {
+                        return Center(
+                          child: Text('No Social Member Records Available'),
+                        );
+                      }
                     } else {
-                      return Center(
-                        child: Text('No Social Member Records Available'),
-                      );
+                      return LinearProgressIndicator();
                     }
-                  } else {
-                    return LinearProgressIndicator();
-                  }
-                },
+                  },
+                ),
               )
             ],
           )),

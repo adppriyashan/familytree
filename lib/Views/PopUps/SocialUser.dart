@@ -77,7 +77,7 @@ class SocialUserState extends State<SocialUser> {
                           color: UtilColors.greyColor.withOpacity(0.6),
                         )),
                     cursorColor: UtilColors.primaryColor,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     style: Utils.getprimaryFieldTextStyle(UtilColors.greyColor),
                   ),
                   SizedBox(
@@ -92,7 +92,7 @@ class SocialUserState extends State<SocialUser> {
                           color: UtilColors.greyColor.withOpacity(0.6),
                         )),
                     cursorColor: UtilColors.primaryColor,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     style: Utils.getprimaryFieldTextStyle(UtilColors.greyColor),
                   ),
                   SizedBox(
@@ -107,7 +107,7 @@ class SocialUserState extends State<SocialUser> {
                           color: UtilColors.greyColor.withOpacity(0.6),
                         )),
                     cursorColor: UtilColors.primaryColor,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     style: Utils.getprimaryFieldTextStyle(UtilColors.greyColor),
                   ),
                   SizedBox(
@@ -122,7 +122,7 @@ class SocialUserState extends State<SocialUser> {
                           color: UtilColors.greyColor.withOpacity(0.6),
                         )),
                     cursorColor: UtilColors.primaryColor,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     style: Utils.getprimaryFieldTextStyle(UtilColors.greyColor),
                   ),
                   SizedBox(
